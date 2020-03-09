@@ -1,6 +1,13 @@
 <?php
 
-$title = 'Login';
+$title = 'Test';
+//variabili per connessione al DB
+$host = "localhost";
+$user = "root";
+$pass = "";
+$result = false;
+
+require './dbManager/connect.php';
 
 ?>
 
@@ -17,7 +24,7 @@ $title = 'Login';
     <script src="js/uikit-icons.min.js"></script>
 </head>
 
-<body  class="uk-animation-fade">
+<body class="uk-animation-fade">
     <nav class="uk-navbar uk-navbar-container uk-margin">
         <div class="uk-navbar-left">
             <a class="uk-navbar-toggle" href="index.php" uk-toggle="target: #offcanvas-push">
@@ -46,6 +53,20 @@ $title = 'Login';
                 </div>
             </div>
         </div>
+        <div class="uk-navbar-right">
+
+            <ul class="uk-navbar-nav">
+                <li>
+                    <?php
+                    if ($result) {
+                        echo "<span class='uk-label uk-label-success uk-margin-small-right'>Succes</span>";
+                    } else {
+                        echo "<span class='uk-label uk-label-danger uk-margin-small-right'>Failed</span>";
+                    }
+                    ?>
+                </li>
+            </ul>
+        </div>
     </nav>
     <div class="uk-section uk-section-muted uk-flex uk-flex-middle" uk-height-viewport>
         <div class="uk-width-1-1">
@@ -53,7 +74,13 @@ $title = 'Login';
                 <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                     <div class="uk-width-1-1@m">
                         <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                            <h3 class="uk-card-title uk-text-center"><font color="#03fc9d">Login avvenuto con successo!</font></h3>
+                            <h3 class="uk-card-title uk-text-center">
+                                <?php if ($result) {
+                                    echo "<font color='#03fc9d'>Connessione effettuata correttamente</font>";
+                                } else {
+                                    echo "<font color='#fc3503'>Connessione fallita</font>";
+                                } ?>
+                            </h3>
                         </div>
                     </div>
                 </div>
