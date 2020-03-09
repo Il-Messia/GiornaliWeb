@@ -1,6 +1,6 @@
 <?php
 
-$title = 'Home';
+$title = 'Login';
 
 ?>
 
@@ -35,7 +35,7 @@ $title = 'Home';
                         <li class="uk-parent">
                             <a href="#">Menu</a>
                             <ul class="uk-nav-sub">
-                                <li><a href="index.php">Home</a></li>
+                                <li><a href="index.php"></span class="uk-margin-small-left">Home<span></a></li>
                                 <li><a href="#">Scrivi</a></li>
                                 <li><a href="login.php">Login</a></li>
                             </ul>
@@ -46,6 +46,19 @@ $title = 'Home';
             </div>
         </div>
     </nav>
+    <div class="uk-section uk-section-muted uk-flex uk-flex-middle" uk-height-viewport>
+        <div class="uk-width-1-1">
+            <div class="uk-container">
+                <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                    <div class="uk-width-1-1@m">
+                        <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+                            <h3 class="uk-card-title uk-text-center"><font color="#fc3503">Login fallito!</font></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
