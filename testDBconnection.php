@@ -1,13 +1,12 @@
 <?php
 
 $title = 'Test';
-//variabili per connessione al DB
-$host = "localhost";
-$user = "root";
-$pass = "";
-$result = false;
+include './dbManager/connect.php';
 
-require './dbManager/connect.php';
+$test = new dbManager;
+
+$test->test();
+$test->closeConnection();
 
 ?>
 
@@ -58,7 +57,7 @@ require './dbManager/connect.php';
             <ul class="uk-navbar-nav">
                 <li>
                     <?php
-                    if ($result) {
+                    if ($test->getStatus()) {
                         echo "<span class='uk-label uk-label-success uk-margin-small-right'>Succes</span>";
                     } else {
                         echo "<span class='uk-label uk-label-danger uk-margin-small-right'>Failed</span>";
@@ -75,7 +74,7 @@ require './dbManager/connect.php';
                     <div class="uk-width-1-1@m">
                         <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                             <h3 class="uk-card-title uk-text-center">
-                                <?php if ($result) {
+                                <?php if ($test->getStatus()) {
                                     echo "<font color='#03fc9d'>Connessione effettuata correttamente</font>";
                                 } else {
                                     echo "<font color='#fc3503'>Connessione fallita</font>";

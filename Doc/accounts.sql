@@ -17,7 +17,7 @@ GRANT SELECT ON `giornali_de_leo`.`ha` TO 'lettore'@'localhost';
 GRANT SELECT ON `giornali_de_leo`.`ca` TO 'lettore'@'localhost';
 GRANT SELECT ON `giornali_de_leo`.`hotwords` TO 'lettore'@'localhost';
 GRANT SELECT ON `giornali_de_leo`.`articolo` TO 'lettore'@'localhost';
-GRANT SELECT (Studente, IdAccount) ON `giornali_de_leo`.`account` TO 'lettore'@'localhost';
+GRANT SELECT (Studente, IdAccount, Username, PassWord) ON `giornali_de_leo`.`account` TO 'lettore'@'localhost';
 --scrittore:
 GRANT USAGE ON *.* TO 'scrittore'@'localhost' IDENTIFIED BY PASSWORD '*A5117F40676A60CE06213601FC02C603040BBFCC';
 GRANT SELECT ON `giornali_de_leo`.`account` TO 'scrittore'@'localhost';
