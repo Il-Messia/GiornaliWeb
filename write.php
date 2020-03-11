@@ -1,6 +1,8 @@
 <?php
 
-$title = 'Home';
+$title = 'Scrivi';
+include './dbManager/checkLogged.php';
+$loginmanager = new loginManager;
 
 ?>
 
@@ -30,12 +32,12 @@ $title = 'Home';
 
                     <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
                         <li class="uk-nav-header">Pagina corrente</li>
-                        <li class="uk-active"><a href="index.php"><?php echo "$title"; ?></a></li>
+                        <li class="uk-active"><a href="write.php"><?php echo "$title"; ?></a></li>
                         <li class="uk-nav-divider"></li>
                         <li class="uk-parent">
                             <a href="#">Menu</a>
                             <ul class="uk-nav-sub">
-                                <li><a href="index.php">Home</a></li>
+                                <li><a href="index.php"></span class="uk-margin-small-left">Home<span></a></li>
                                 <li><a href="write.php">Scrivi</a></li>
                                 <li><a href="login.php">Login</a></li>
                                 <li><a href="testDBconnection.php">Test</a></li>
@@ -46,39 +48,34 @@ $title = 'Home';
                 </div>
             </div>
         </div>
-        <div class="uk-navbar-right">
-            <div>
-                <a class="uk-navbar-toggle" uk-search-icon href="#"></a>
-                <div class="uk-drop" uk-drop="mode: click; pos: left-center; offset: 0">
-                    <form class="uk-search uk-search-navbar uk-width-1-1">
-                        <input class="uk-search-input" type="search" placeholder="Search..." autofocus>
-                    </form>
+    </nav>
+    <?php
+
+
+    if ($loginmanager->getStatus() and ($loginmanager->getAccounttype() === "SCRITTORE" || $loginmanager->getAccounttype() === "ADMIN" || $loginmanager->getAccounttype() === "VALIDATORE")) {
+    } else {
+        echo '<div class="uk-section uk-section-muted uk-flex uk-flex-middle" uk-height-viewport>
+            <div class="uk-width-1-1">
+                <div class="uk-container">
+                    <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                        <div class="uk-width-1-1@m">
+                            <div
+                                class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+                                <h3 class="uk-card-title uk-text-center">Attenzione!</h3>
+                                <div class="uk-text-small uk-text-center">
+                                        <h4>Devi accedere con uaccount del tipo SCRITTORE o VALIDATORE</h4>
+                                </div>    
+                                <div class="uk-text-small uk-text-center">
+                                        Torna al <a href="login.php">Login</a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
-    <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
-        <div>
-            <a class="uk-link-reset" href="testDBconnection.php">
-                <div class="uk-card uk-card-default uk-card-hover uk-card-body">
-                    <h3 class="uk-card-title">Test</h3>
-                    <p>OnClick testing</p>
-                </div>
-            </a>
-
-        </div>
-        <?php
-
-
-        for ($i = 0; $i < 23; $i++) {
-            echo '<div><div class="uk-card uk-card-default uk-card-hover uk-card-body">
-            <h3 class="uk-card-title">Prova articolo</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-        </div></div>';
-        }
-        ?>
-    </div>
-
+        </div>';
+    }
+    ?>
 </body>
 
 </html>

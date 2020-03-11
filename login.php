@@ -32,13 +32,13 @@ $loginmanager = new loginManager;
 
                     <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
                         <li class="uk-nav-header">Pagina corrente</li>
-                        <li class="uk-active"><a href="index.php"><?php echo "$title"; ?></a></li>
+                        <li class="uk-active"><a href="login.php"><?php echo "$title"; ?></a></li>
                         <li class="uk-nav-divider"></li>
                         <li class="uk-parent">
                             <a href="#">Menu</a>
                             <ul class="uk-nav-sub">
                                 <li><a href="index.php"></span class="uk-margin-small-left">Home<span></a></li>
-                                <li><a href="#">Scrivi</a></li>
+                                <li><a href="write.php">Scrivi</a></li>
                                 <li><a href="login.php">Login</a></li>
                                 <li><a href="testDBconnection.php">Test</a></li>
                             </ul>
