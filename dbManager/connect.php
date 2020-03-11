@@ -17,6 +17,35 @@
           $this->connect();  
         }
 
+        function runQuery($query){
+            return $this->dbConnection->query($query);
+        }
+        
+        function setUsername($us){
+            switch($us){
+                case 1:
+                    $this->dbUsername = "admin";
+                    $this->dbPassword = "adminDeLeo_290801";
+                    break;
+                case 2:
+                    $this->dbUsername = "lettore";
+                    $this->dbPassword = "";
+                    break;
+                case 3:
+                    $this->dbUsername = "validatore";
+                    $this->dbPassword = "validatoreDeLeo_290801";
+                    break;
+                case 4:
+                    $this->dbUsername = "scrittore";
+                    $this->dbPassword = "scrittoreDeLeo_290801";
+                    break;
+                default:
+                    $this->dbUsername = "lettore";
+                    $this->dbPassword = "";
+                    break;
+            }
+        }
+
         function __construct()
         {
             $this->dbHost = "localhost";
@@ -39,5 +68,3 @@
             mysqli_close($this->dbConnection);
         }
     }
-
-?>

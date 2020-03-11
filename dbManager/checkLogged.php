@@ -1,9 +1,12 @@
 <?php
 
+include 'connect.php';
+
 class loginManager{
     private $logged;
     private $username;
     private $accounttype;
+    private $con = new dbManager;
 
     public function logout(){
         $this->logged = false;
@@ -11,6 +14,9 @@ class loginManager{
         $this->accounttype = null;
     }
 
+    
+    public function login($user, $pass){
+    }
     function __construct(){
         session_start();
         if(isset($_SESSION['username'])&&isset($_SESSION['accounttype'])){
