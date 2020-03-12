@@ -18,7 +18,8 @@
         }
 
         function runQuery($query){
-            return $this->dbConnection->query($query);
+            $res = mysqli_query($this->dbConnection, $query);
+            return $res;
         }
         
         function setUsername($us){

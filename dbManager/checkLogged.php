@@ -2,51 +2,102 @@
 
 include 'connect.php';
 
-class loginManager{
+class loginManager
+{
     private $logged;
     private $username;
     private $accounttype;
-    private $con = new dbManager;
+    private $con;
 
-    public function logout(){
+    public function logout()
+    {
         $this->logged = false;
         $this->username = null;
         $this->accounttype = null;
     }
 
-    
-    public function login($user, $pass){
+    public function saveToSession()
+    {
+        $_SESSION['username'] = $this->username;
+        $_SESSION['accounttype'] = $this->accounttype;
     }
-    function __construct(){
+    public function login($user, $pass)
+    {
+        $this->logged = false;
+        $this->con->setUsername(2);
+        $this->con->connect();
+        $query = "SELECT Username,PassWord, TipoAccount FROM account";
+        $res = $this->con->runQuery($query);
+        $this->con->closeConnection();
+        if (mysqli_num_rows($res) > 0) {
+
+            while ($row = mysqli_fetch_assoc($res)) {
+
+                $temppsw = sha1($pass);
+
+                if ($user === $row["Username"] && $temppsw === $row["PassWord"]) {
+                    $this->logged = true;
+                    $this->con->setUsername($row["TipoAccount"]);
+                    switch ($row["TipoAccount"]) {
+                        case 1:
+                            $this->accounttype = "admin";
+                            break;
+                        case 2:
+                            $this->accounttype = "lettore";
+                            break;
+                        case 3:
+                            $this->accounttype = "validatore";
+                            break;
+                        case 4:
+                            $this->accounttype = "scrittore";
+                            break;
+                        default:
+                            $this->accounttype = "lettore";
+                            break;
+                    }
+
+                    $this->username = $row["Username"];
+                }
+
+                $this->con->connect();
+            }
+        } else {
+        }
+    }
+    function __construct()
+    {
         session_start();
-        if(isset($_SESSION['username'])&&isset($_SESSION['accounttype'])){
+        $this->con = new dbManager;
+        if (isset($_SESSION['username']) && isset($_SESSION['accounttype'])) {
             $this->logged = true;
             $this->username = $_SESSION['username'];
             $this->accounttype = $_SESSION['accounttype'];
-        }else{
+        } else {
             $this->logged = false;
             $this->username = "Prova user";
             $this->accounttype = "Prova tipo";
         }
     }
-    function getStatus(){
-        if(isset($this->logged)){
+    function getStatus()
+    {
+        if (isset($this->logged)) {
             return $this->logged;
         }
         return false;
     }
-    function getUsername(){
-        if(isset($this->username)){
+    function getUsername()
+    {
+        if (isset($this->username)) {
             return $this->username;
         }
         return null;
     }
-    function getAccounttype(){
-        if(isset($this->accounttype)){
+    function getAccounttype()
+    {
+        if (isset($this->accounttype)) {
             return $this->accounttype;
         }
         return null;
     }
-
 }
 ?>
