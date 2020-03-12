@@ -13,7 +13,11 @@ class loginManager
     {
         $this->logged = false;
         $this->username = null;
-        $this->accounttype = null;
+        $this->accounttype = "lettore";
+        $this->saveToSession();
+        $this->con->closeConnection();
+        $this->con->setUsername(2);
+        $this->con->connect();
     }
 
     public function saveToSession()
@@ -57,6 +61,7 @@ class loginManager
                     }
 
                     $this->username = $row["Username"];
+                    $this->saveToSession();
                 }
 
                 $this->con->connect();

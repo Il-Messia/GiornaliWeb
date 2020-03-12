@@ -42,7 +42,6 @@ $test->closeConnection();
                             <a href="#">Menu</a>
                             <ul class="uk-nav-sub">
                                 <li><a href="index.php"></span class="uk-margin-small-left">Home<span></a></li>
-                                <li><a href="#">Scrivi</a></li>
                                 <li><a href="login.php">Login</a></li>
                                 <li><a href="testDBconnection.php">Test</a></li>
                             </ul>

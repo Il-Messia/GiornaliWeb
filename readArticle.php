@@ -1,6 +1,10 @@
 <?php
 
-$title = 'Home';
+if(isset($_GET['id'])){
+    $title = 'Funziona';
+}
+
+
 
 include './dbManager/checkLogged.php';
 $loginmanager = new loginManager;
@@ -53,7 +57,7 @@ $loginmanager = new loginManager;
                                 ?>
                                 <?php
                                 if ($loginmanager->getAccounttype() === "admin") {
-                                    echo '<li><a href="addAccount.php">Aggiungi account</a></li>';
+                                    echo '<li><a href="valida.php">Aggiungi account</a></li>';
                                 }
                                 ?>
                             </ul>
@@ -76,7 +80,7 @@ $loginmanager = new loginManager;
     </nav>
     <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
         <div uk-scrollspy="cls: uk-animation-slide-left; repeat: true">
-            <a class="uk-link-reset" href="readArticle.php?id=1">
+            <a class="uk-link-reset" href="testDBconnection.php">
                 <div class="uk-card uk-card-default uk-card-hover uk-card-body">
                     <div class="uk-card-badge uk-label">New</div>
                     <h3 class="uk-card-title">Test</h3>

@@ -1,9 +1,8 @@
 <?php
 
-$title = 'Scrivi';
+$title = 'Aggiungi studente';
 include './dbManager/checkLogged.php';
 $loginmanager = new loginManager;
-$today = date("Y/m/d");
 ?>
 
 <html>
@@ -62,49 +61,43 @@ $today = date("Y/m/d");
     <?php
 
 
-    if ($loginmanager->getStatus() and ($loginmanager->getAccounttype() === "scrittore" || $loginmanager->getAccounttype() === "admin" || $loginmanager->getAccounttype() === "validatore")) {
+    if ($loginmanager->getStatus() && $loginmanager->getAccounttype() === "admin") {
         echo '<div class="uk-section uk-section-muted uk-flex uk-flex-middle" uk-height-viewport>
         <div class="uk-width-1-1">
             <div class="uk-container">
                 <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                     <div class="uk-width-1-1@m">
-                        <div class="uk-margin uk-width-exapand uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                            <h3 class="uk-card-title uk-text-center">Scrivi!</h3>
+                        <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+                            <h3 class="uk-card-title uk-text-center">Aggiungi studente</h3>
                             <form class="uk-form-stacked">
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-text">Titolo</label>
-                                    <div class="uk-form-controls">
-                                        <input class="uk-input uk-form-width-large" id="form-stacked-text" type="text" placeholder="Titolo..." required maxlength="70">
-                                    </div>
+                                    <label class="uk-form-label" for="form-stacked-text">Studente</label>
+                                    <select class="uk-select"></select>
                                 </div>
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-select">Abstract</label>
-                                    <textarea class="uk-textarea" rows="5" placeholder="Abstract..." required maxlength="250"></textarea>
+                                    <label class="uk-form-label" for="form-stacked-text">Username</label>
+                                    <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                            <input class="uk-input uk-form-large" type="text" name="username">
+                                        </div>
                                 </div>
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-select">Testo</label>
-                                    <textarea class="uk-textarea" rows="5" placeholder="Testo..."></textarea>
+                                    <label class="uk-form-label" for="form-stacked-text">Tipologia account</label>
+                                    <select class="uk-select"></select>
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="form-stacked-text">Password</label>
+                                    <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                            <input class="uk-input uk-form-large" type="password" name="password">
+                                        </div>
                                 </div>
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-select">Data inizio visibilità</label>
-                                    <div class="uk-inline">
-                                        <span class="uk-form-icon" uk-icon="icon: calendar"></span>
-                                        <input class="uk-input" placeholder="' . $today . '" required minlength="10" maxlength="10">
-                                    </div>
-                                </div>
-                                <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-select">Data fine visibilità</label>
-                                    <div class="uk-inline">
-                                        <span class="uk-form-icon" uk-icon="icon: calendar"></span>
-                                        <input class="uk-input" placeholder="' . $today . '" required minlength="10" maxlength="10">
-                                    </div>
+                                    <button class="uk-button uk-button-primary uk-button-large uk-width-1-1">
+                                            Aggiungi  
+                                    </button>
                                 </div>
                             </div>
-                            <div class="uk-margin">
-                                        <button class="uk-button uk-button-primary uk-button-large uk-width-1-1">
-                                            Pubblica  
-                                        </button>
-                                    </div>
+                            
                         </form>
                         </div>
                     </div>

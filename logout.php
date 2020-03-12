@@ -39,9 +39,23 @@ $loginmanager->logout();
                             <a href="#">Menu</a>
                             <ul class="uk-nav-sub">
                                 <li><a href="index.php"></span class="uk-margin-small-left">Home<span></a></li>
-                                <li><a href="write.php">Scrivi</a></li>
+                                <?php
+                                    if($loginmanager->getAccounttype()==="admin" || $loginmanager->getAccounttype()==="validatore" || $loginmanager->getAccounttype()==="scrittore"){
+                                        echo '<li><a href="write.php">Scrivi</a></li>';
+                                    }
+                                ?>
                                 <li><a href="login.php">Login</a></li>
                                 <li><a href="testDBconnection.php">Test</a></li>
+                                <?php
+                                    if($loginmanager->getAccounttype()==="admin" || $loginmanager->getAccounttype()==="validatore"){
+                                        echo '<li><a href="valida.php">Da validare</a></li>';
+                                    }
+                                ?>
+                                <?php
+                                    if($loginmanager->getAccounttype()==="admin" || $loginmanager->getAccounttype()==="validatore"){
+                                        echo '<li><a href="addAccount.php">Aggiungi account</a></li>';
+                                    }
+                                ?>
                             </ul>
                         </li>
                         <li class="uk-nav-divider"></li>

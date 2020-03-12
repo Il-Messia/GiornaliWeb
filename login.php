@@ -1,8 +1,21 @@
 <?php
 
+/*$title = 'Login';
+include './dbManager/checkLogged.php';
+$loginmanager = new loginManager;
+*/
 $title = 'Login';
 include './dbManager/checkLogged.php';
 $loginmanager = new loginManager;
+if (isset($_POST['username'])) {
+    $user = $_POST['username'];
+}
+if (isset($_POST['password'])) {
+    $pass = $_POST['password'];
+}
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $loginmanager->login($user, $pass);
+}
 
 ?>
 
@@ -38,9 +51,23 @@ $loginmanager = new loginManager;
                             <a href="#">Menu</a>
                             <ul class="uk-nav-sub">
                                 <li><a href="index.php"></span class="uk-margin-small-left">Home<span></a></li>
-                                <li><a href="write.php">Scrivi</a></li>
+                                <?php
+                                if ($loginmanager->getAccounttype() === "admin" || $loginmanager->getAccounttype() === "validatore" || $loginmanager->getAccounttype() === "scrittore") {
+                                    echo '<li><a href="write.php">Scrivi</a></li>';
+                                }
+                                ?>
                                 <li><a href="login.php">Login</a></li>
                                 <li><a href="testDBconnection.php">Test</a></li>
+                                <?php
+                                if ($loginmanager->getAccounttype() === "admin" || $loginmanager->getAccounttype() === "validatore") {
+                                    echo '<li><a href="valida.php">Da validare</a></li>';
+                                }
+                                ?>
+                                <?php
+                                if ($loginmanager->getAccounttype() === "admin") {
+                                    echo '<li><a href="addAccount.php">Aggiungi account</a></li>';
+                                }
+                                ?>
                             </ul>
                         </li>
                         <li class="uk-nav-divider"></li>
@@ -50,7 +77,7 @@ $loginmanager = new loginManager;
         </div>
     </nav>
     <?php
-    if ($loginmanager->getStatus()){
+    if ($loginmanager->getStatus()) {
         echo '<div class="uk-section uk-section-muted uk-flex uk-flex-middle" uk-height-viewport>
             <div class="uk-width-1-1">
                 <div class="uk-container">
@@ -100,7 +127,7 @@ $loginmanager = new loginManager;
                             <div
                                 class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                                 <h3 class="uk-card-title uk-text-center">Benvenuto!</h3>
-                                <form method="post" action="loginResult.php">
+                                <form method="post" action="login.php">
                                     <div class="uk-margin">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: user"></span>
@@ -116,9 +143,6 @@ $loginmanager = new loginManager;
                                     <div class="uk-margin">
                                         <button
                                             class="uk-button uk-button-primary uk-button-large uk-width-1-1">Login</button>
-                                    </div>
-                                    <div class="uk-text-small uk-text-center">
-                                        Non registrato? <a href="loginSuccess.php">Crea un account</a>
                                     </div>
                                 </form>
                             </div>
