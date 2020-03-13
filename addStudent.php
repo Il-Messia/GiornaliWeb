@@ -3,6 +3,8 @@
 $title = 'Aggiungi studente';
 include './dbManager/checkLogged.php';
 $loginmanager = new loginManager;
+$today = date("Y/m/d");
+
 ?>
 
 <html>
@@ -69,27 +71,34 @@ $loginmanager = new loginManager;
                     <div class="uk-width-1-1@m">
                         <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                             <h3 class="uk-card-title uk-text-center">Aggiungi studente</h3>
-                            <form class="uk-form-stacked">
+                            <form class="uk-form-stacked" method="post" action="addStudentResult.php">
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-text">Studente</label>
-                                    <select class="uk-select"></select>
-                                </div>
-                                <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-text">Username</label>
+                                    <label class="uk-form-label" for="form-stacked-text">Nome</label>
                                     <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                            <input class="uk-input uk-form-large" type="text" name="username">
+                                            <input class="uk-input uk-form-large" type="text" name="nome" required>
                                         </div>
                                 </div>
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-text">Tipologia account</label>
-                                    <select class="uk-select"></select>
-                                <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-text">Password</label>
+                                    <label class="uk-form-label" for="form-stacked-text">Cognome</label>
                                     <div class="uk-inline uk-width-1-1">
-                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                            <input class="uk-input uk-form-large" type="password" name="password">
+                                            <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                            <input class="uk-input uk-form-large" type="text" name="cognome" required>
                                         </div>
+                                </div>
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="form-stacked-text">Città</label>
+                                    <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: location"></span>
+                                            <input class="uk-input uk-form-large" type="text" name="luogo" required>
+                                        </div>
+                                </div>
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="form-stacked-select">Data nascita</label>
+                                    <div class="uk-inline uk-width-1-1">
+                                        <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                                        <input class="uk-input" placeholder="' . $today . '" required minlength="10" maxlength="10" name="data">
+                                    </div>
                                 </div>
                                 <div class="uk-margin">
                                     <button class="uk-button uk-button-primary uk-button-large uk-width-1-1">

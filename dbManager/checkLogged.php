@@ -25,6 +25,22 @@ class loginManager
         $_SESSION['username'] = $this->username;
         $_SESSION['accounttype'] = $this->accounttype;
     }
+    public function toNumber(){
+        switch($this->accounttype){
+            case 'admin':
+                return 1;
+            break;
+            case 'lettore':
+                return 2;
+            break;
+            case 'validatore':
+                return 3;
+            break;
+            case 'scrittore':
+                return 4;
+            break;
+        }
+    }
     public function login($user, $pass)
     {
         $this->logged = false;
@@ -80,7 +96,7 @@ class loginManager
         } else {
             $this->logged = false;
             $this->username = "Prova user";
-            $this->accounttype = "Prova tipo";
+            $this->accounttype = "lettore";
         }
     }
     function getStatus()

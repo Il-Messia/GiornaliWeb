@@ -1,9 +1,5 @@
 <?php
 
-/*$title = 'Login';
-include './dbManager/checkLogged.php';
-$loginmanager = new loginManager;
-*/
 $title = 'Login';
 include './dbManager/checkLogged.php';
 $loginmanager = new loginManager;

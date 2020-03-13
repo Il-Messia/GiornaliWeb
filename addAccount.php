@@ -4,7 +4,7 @@ $title = 'Aggiungi account';
 include './dbManager/checkLogged.php';
 $loginmanager = new loginManager;
 $dbmanager = new dbManager;
-$dbmanager->setUsername($loginmanager->getAccounttype());
+$dbmanager->setUsername($loginmanager->toNumber());
 $dbmanager->connect();
 $students = $dbmanager->runQuery("SELECT IdStudente, Nome, Cognome FROM Studenti");
 $accountType = $dbmanager->runQuery("SELECT IdTA, Nome FROM tipiaccount");
@@ -90,10 +90,10 @@ function printAccountType($var){
                     <div class="uk-width-1-1@m">
                         <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                             <h3 class="uk-card-title uk-text-center">Aggiungi account</h3>
-                            <form class="uk-form-stacked">
+                            <form class="uk-form-stacked" method="POST" action="addAccountResult.php">
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-text">Studente</label>
-                                    <select class="uk-select">';
+                                    <select class="uk-select" name="student">';
                                         printStudents($students);
                                 echo '</select>
                                 </div>
@@ -107,19 +107,19 @@ function printAccountType($var){
                                     <label class="uk-form-label" for="form-stacked-text">Username</label>
                                     <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                            <input class="uk-input uk-form-large" type="text" name="username">
+                                            <input class="uk-input uk-form-large" type="text" name="username" required maxlength="50">
                                         </div>
                                 </div>
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-text">Tipologia account</label>
-                                    <select class="uk-select">';
+                                    <select class="uk-select" name="accounttype">';
                                         printAccountType($accountType);
                                 echo '</select>
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-text">Password</label>
                                     <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                            <input class="uk-input uk-form-large" type="password" name="password">
+                                            <input class="uk-input uk-form-large" type="password" required maxlength="500" name="password">
                                         </div>
                                 </div>
                                 <div class="uk-margin">

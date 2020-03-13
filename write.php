@@ -4,6 +4,7 @@ $title = 'Scrivi';
 include './dbManager/checkLogged.php';
 $loginmanager = new loginManager;
 $today = date("Y/m/d");
+
 ?>
 
 <html>
@@ -70,39 +71,39 @@ $today = date("Y/m/d");
                     <div class="uk-width-1-1@m">
                         <div class="uk-margin uk-width-exapand uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                             <h3 class="uk-card-title uk-text-center">Scrivi!</h3>
-                            <form class="uk-form-stacked">
+                            <form class="uk-form-stacked" method="POST" action="writeResult.php">
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-text">Titolo</label>
                                     <div class="uk-form-controls">
-                                        <input class="uk-input uk-form-width-large" id="form-stacked-text" type="text" placeholder="Titolo..." required maxlength="70">
+                                        <input name="titolo" class="uk-input uk-form-width-large" id="form-stacked-text" type="text" placeholder="Titolo..." required maxlength="70">
                                     </div>
                                 </div>
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-select">Abstract</label>
-                                    <textarea class="uk-textarea" rows="5" placeholder="Abstract..." required maxlength="250"></textarea>
+                                    <textarea name="abstract" class="uk-textarea" rows="5" placeholder="Abstract..." required maxlength="250"></textarea>
                                 </div>
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-select">Testo</label>
-                                    <textarea class="uk-textarea" rows="5" placeholder="Testo..."></textarea>
+                                    <textarea name="testo" class="uk-textarea" rows="5" placeholder="Testo..."></textarea>
                                 </div>
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-select">Data inizio visibilità</label>
                                     <div class="uk-inline">
                                         <span class="uk-form-icon" uk-icon="icon: calendar"></span>
-                                        <input class="uk-input" placeholder="' . $today . '" required minlength="10" maxlength="10">
+                                        <input name="datain" class="uk-input" placeholder="' . $today . '" required minlength="10" maxlength="10">
                                     </div>
                                 </div>
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-select">Data fine visibilità</label>
                                     <div class="uk-inline">
                                         <span class="uk-form-icon" uk-icon="icon: calendar"></span>
-                                        <input class="uk-input" placeholder="' . $today . '" required minlength="10" maxlength="10">
+                                        <input name="datafin" class="uk-input" placeholder="' . $today . '" required minlength="10" maxlength="10">
                                     </div>
                                 </div>
                             </div>
                             <div class="uk-margin">
                                         <button class="uk-button uk-button-primary uk-button-large uk-width-1-1">
-                                            Pubblica  
+                                            Carica  
                                         </button>
                                     </div>
                         </form>
