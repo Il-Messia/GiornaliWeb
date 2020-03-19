@@ -12,31 +12,18 @@ $id = $_GET['id'];
 $dbmanager->setUsername($loginmanager->toNumber());
 $dbmanager->connect();
 
-$query = "SELECT IdArticolo, Titolo, Abstract, Testo, DataInizioVis, DataFineVis, Autore FROM articolo WHERE IdArticolo = $id";
-
+$user = $loginmanager->getUsername();
+$query = "SELECT Studente FROM account WHERE Username = '$user'";
 $res = $dbmanager->runQuery($query);
 
 if (mysqli_num_rows($res) > 0) {
     while ($row = mysqli_fetch_assoc($res)) {
-        $titolo = $row['Titolo'];
-        $abstract = $row['Abstract'];
-        $testo = $row['Testo'];
-        $datain = $row['DataInizioVis'];
-        $datafin = $row['DataFineVis'];
-        $idScrittore = $row['Autore'];
+        $idStudente = $row['Studente'];
     }
 }
 
-$query = "SELECT Nome, Cognome FROM studenti WHERE idStudente = $idScrittore";
-
+$query = "UPDATE articolo SET Visionatore = $idStudente WHERE IdArticolo = $id";
 $res = $dbmanager->runQuery($query);
-
-if (mysqli_num_rows($res) > 0) {
-    while ($row = mysqli_fetch_assoc($res)) {
-        $nome = $row['Nome'];
-        $cognome = $row['Cognome'];
-    }
-}
 
 $dbmanager->closeConnection();
 
@@ -100,57 +87,47 @@ $dbmanager->closeConnection();
                 </div>
             </div>
         </div>
-
+        <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+                <li>
+                    <?php
+                    if ($res) {
+                        echo "<span class='uk-label uk-label-success uk-margin-small-right'>Succes</span>";
+                    } else {
+                        echo "<span class='uk-label uk-label-danger uk-margin-small-right'>Failed</span>";
+                    }
+                    ?>
+                </li>
+            </ul>
+        </div>
     </nav>
     <div class="uk-section uk-section-muted uk-flex uk-flex-middle" uk-height-viewport>
         <div class="uk-width-1-1">
             <div class="uk-container">
                 <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                     <div class="uk-width-1-1@m">
-                        <div class="uk-margin uk-width-exapand uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                            <form class="uk-form-stacked">
-                                <div class="uk-margin">
-                                    <h2><?php echo $titolo ?></h2>
-                                </div>
-                                <hr class="uk-divider-small">
-                                <div class="uk-margin">
-                                    <h4><?php echo $abstract ?></h4>
-                                </div>
-                                <hr class="uk-divider-small">
-                                <div class="uk-margin">
-                                    <h5><?php echo $testo ?></h5>
-                                </div>
-                                <hr class="uk-divider-small">
-                                <div class="uk-margin">
-                                    <ul class="uk-list">
-                                        <li>
-                                            <span class="uk-margin-small-right uk-icon" uk-icon="calendar"></span>
-                                            <?php echo $datain; ?>
-                                        </li>
-                                        <li>
-                                            <span class="uk-margin-small-right uk-icon" uk-icon="calendar"></span>
-                                            <?php echo $datafin; ?>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <hr class="uk-divider-small">
-                                <div class="uk-margin">
-                                    <span class="uk-margin-small-right uk-icon" uk-icon="user"></span>
-                                    <?php echo $nome . ' ' . $cognome; ?>
-                                </div>
-                                <hr class="uk-divider-small">
-                                <div class="uk-margin">
-                                    <a href="index.php" class="uk-icon-link" uk-icon="home"></a>
-                                </div>
-
-                            </form>
+                        <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+                            <h3 class="uk-card-title uk-text-center">
+                                <?php if ($res) {
+                                    echo "<font color='#03fc9d'>Articolo validato correttamente.</font>";
+                                    echo '  <br>
+                                            <div uk-form-custom>
+                                                <span class="uk-link"><a href="index.php">Home</a></span>
+                                            </div>';
+                                } else {
+                                    echo "<font color='#fc3503'>Validamento fallito</font>";
+                                    echo '  <br><span class="uk-text-middle">Errore validamento articolo, </span>
+                                            <div uk-form-custom>
+                                                <span class="uk-link"><a href="valida.php">ritenta</a></span>
+                                            </div>';
+                                } ?>
+                            </h3>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

@@ -4,6 +4,56 @@ $title = 'Home';
 
 include './dbManager/checkLogged.php';
 $loginmanager = new loginManager;
+$dbmanager = new dbManager;
+$url = "readArticle.php?id=";
+$dbmanager->setUsername($loginmanager->toNumber());
+$dbmanager->connect();
+
+$query = "SELECT IdArticolo, Titolo, Abstract, DataInizioVis, DataFineVis FROM articolo WHERE IdArticolo NOT IN (SELECT IdArticolo FROM articolo WHERE Visionatore IS NULL)";
+
+$res = $dbmanager->runQuery($query);
+
+$today1 = date("Y/m/d");
+$today2 = date("Y-m-d");
+
+function printsx($var, $t1, $t2, $url)
+{
+    echo '<div uk-scrollspy="cls: uk-animation-slide-left; repeat: true">
+            <a class="uk-link-reset" href="' . $url . $var['IdArticolo'] . '">
+                <div class="uk-card uk-card-default uk-card-hover uk-card-body">';
+    if ($var['DataInizioVis'] === $t1 || $var['DataInizioVis'] === $t2) {
+        echo '<div class="uk-card-badge uk-label">New</div>';
+    }
+    echo '               
+                    <h3 class="uk-card-title">' . $var['Titolo'] . '</h3>
+                    <p class="uk-text-meta uk-margin-remove-top"><time datetime="' . $var['DataInizioVis'] . 'T19:00">' . $var['DataInizioVis'] . '</time></p>
+                    <p>' . $var['Abstract'] . '</p>
+                </div>
+            </a>
+
+        </div>';
+}
+
+function printdx($var, $t1, $t2, $url)
+{
+    echo '<div uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
+    <a class="uk-link-reset" href="' . $url . $var['IdArticolo'] . '">
+    <div class="uk-card uk-card-default uk-card-hover uk-card-body">';
+    if ($var['DataInizioVis'] === $t1 || $var['DataInizioVis'] === $t2) {
+        echo '<div class="uk-card-badge uk-label">New</div>';
+    }
+    echo '               
+        <h3 class="uk-card-title">' . $var['Titolo'] . '</h3>
+        <p class="uk-text-meta uk-margin-remove-top"><time datetime="' . $var['DataInizioVis'] . 'T19:00">' . $var['DataInizioVis'] . '</time></p>
+        <p>' . $var['Abstract'] . '</p>
+    </div>
+</a>
+
+</div>';
+}
+
+
+$dbmanager->closeConnection();
 
 ?>
 
@@ -75,42 +125,22 @@ $loginmanager = new loginManager;
         </div>
     </nav>
     <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
-        <div uk-scrollspy="cls: uk-animation-slide-left; repeat: true">
-            <a class="uk-link-reset" href="readArticle.php?id=1">
-                <div class="uk-card uk-card-default uk-card-hover uk-card-body">
-                    <div class="uk-card-badge uk-label">New</div>
-                    <h3 class="uk-card-title">Test</h3>
-                    <p>OnClick testing</p>
-                </div>
-            </a>
-
-        </div>
-        <div uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
-            <div class="uk-card uk-card-default uk-card-hover uk-card-body">
-                <h3 class="uk-card-title">Prova articolo</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-            </div>
-        </div>
         <?php
+        $i = 0;
 
-
-        for ($i = 0; $i < 23; $i++) {
-            if($i%2===0){
-                echo '<div uk-scrollspy="cls: uk-animation-slide-left; repeat: true">
-                            <div class="uk-card uk-card-default uk-card-hover uk-card-body">
-                                <h3 class="uk-card-title">Prova articolo</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>';
-            }else{
-                echo '<div uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
-                <div class="uk-card uk-card-default uk-card-hover uk-card-body">
-                    <h3 class="uk-card-title">Prova articolo</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                </div>
-            </div>';
+        if (mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) {
+                $d1 = date_parse($today1);
+                $d2 = date_parse($row['DataFineVis']);
+                if ($d1 <= $d2) {
+                    if ($i % 2 === 0) {
+                        printsx($row, $today1, $today2, $url);
+                    } else {
+                        printdx($row, $today1, $today2, $url);
+                    }
+                    $i++;
+                }
             }
-            
         }
         ?>
     </div>

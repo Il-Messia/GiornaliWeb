@@ -15,7 +15,9 @@ class loginManager
         $this->username = null;
         $this->accounttype = "lettore";
         $this->saveToSession();
-        $this->con->closeConnection();
+        if($this->con->getStatus()){
+            $this->con->closeConnection();
+        }
         $this->con->setUsername(2);
         $this->con->connect();
     }

@@ -108,7 +108,9 @@ $dbmanager->closeConnection();
                 <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                     <div class="uk-width-1-1@m">
                         <div class="uk-margin uk-width-exapand uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                            <form class="uk-form-stacked">
+                            <h3 class="uk-card-title uk-text-center">Validazione</h3>
+                            <?php echo '<form class="uk-form-stacked" method="POST" action="validationResult.php?id=' . $id . '">';?>
+                            
                                 <div class="uk-margin">
                                     <h2><?php echo $titolo ?></h2>
                                 </div>
@@ -135,14 +137,15 @@ $dbmanager->closeConnection();
                                 </div>
                                 <hr class="uk-divider-small">
                                 <div class="uk-margin">
-                                    <span class="uk-margin-small-right uk-icon" uk-icon="user"></span>
-                                    <?php echo $nome . ' ' . $cognome; ?>
+                                        <span class="uk-margin-small-right uk-icon" uk-icon="user"></span>
+                                        <?php echo $nome . ' ' . $cognome; ?>
                                 </div>
                                 <hr class="uk-divider-small">
                                 <div class="uk-margin">
-                                    <a href="index.php" class="uk-icon-link" uk-icon="home"></a>
+                                    <button class="uk-button uk-button-primary uk-button-large uk-width-1-1">
+                                        Valida
+                                    </button>
                                 </div>
-
                             </form>
                         </div>
                     </div>

@@ -77,7 +77,6 @@ $dbmanager->closeConnection();
             </div>
         </div>
         <div class="uk-navbar-right">
-
             <ul class="uk-navbar-nav">
                 <li>
                     <?php
