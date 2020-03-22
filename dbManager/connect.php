@@ -22,7 +22,7 @@
             return $res;
         }
 
-        function setUsername($us){
+        /*function setUsername($us){
             switch($us){
                 case 1:
                     $this->dbUsername = "admin";
@@ -45,10 +45,10 @@
                     $this->dbPassword = "";
                     break;
             }
-        }
+        }*/
 
         //con password, togliere da commento per utilizzarlo
-        /*function setUsername($us){
+        function setUsername($us){
             switch($us){
                 case 1:
                     $this->dbUsername = "admin";
@@ -71,7 +71,7 @@
                     $this->dbPassword = "";
                     break;
             }
-        }*/
+        }
 
         function __construct()
         {
@@ -95,3 +95,4 @@
             mysqli_close($this->dbConnection);
         }
     }
+?>

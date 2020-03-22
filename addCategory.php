@@ -28,10 +28,6 @@ if (isset($_POST['nomeCat']) && $_POST['nomeCat'] != "") {
             </div>';
     }
 }else{
-    echo '<div class="uk-alert-danger" uk-alert>
-                <a class="uk-alert-close" uk-close></a>
-                <p>Non hai inserito i campi correttamente</p>
-            </div>';
 }
 $dbmanager->closeConnection();
 ?>
