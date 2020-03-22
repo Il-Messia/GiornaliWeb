@@ -1,5 +1,10 @@
 <?php
 
+/*
+De Leo Alex 5^CIA
+Pagina che permette la scrittura di nuovi articoli
+*/
+
 $title = 'Scrivi';
 include_once './dbManager/checkLogged.php';
 include_once './UI/UIManager.php';

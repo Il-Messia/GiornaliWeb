@@ -1,5 +1,8 @@
 <?php
-
+/*
+De Leo Alex 5^CIA
+Pagina per l'inserimento delle nuove categori
+*/
 $title = 'Aggiungi categoria';
 include_once './dbManager/checkLogged.php';
 include_once './UI/UIManager.php';
@@ -13,6 +16,8 @@ $dbmanager->setUsername($loginmanager->toNumber());
 $dbmanager->connect();
 $qryCat = "SELECT IdCategoria, Nome FROM categorie";
 $cat = $dbmanager->runQuery($qryCat);
+
+//controllo dei dati e inserimento delle nuove categorie
 if (isset($_POST['nomeCat']) && $_POST['nomeCat'] != "") {
     $tmpQuery = 'INSERT INTO Categorie (Nome) VALUES ("' . $_POST['nomeCat'] . '")';
     $res = $dbmanager->runQuery($tmpQuery);

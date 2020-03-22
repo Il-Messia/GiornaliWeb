@@ -1,5 +1,10 @@
 <?php
 
+/*
+De Leo Alex 5^CIA
+Pagina che permette la lettura dell'articolo da validare
+*/
+
 $title = 'Valida';
 
 include_once './dbManager/checkLogged.php';

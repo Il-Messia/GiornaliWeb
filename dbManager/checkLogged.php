@@ -1,6 +1,11 @@
 <?php
 
-include 'connect.php';
+/*
+De Leo Alex 5^CIA
+Classe che permette la gestione dei login e dei tipi d account
+*/
+
+include_once 'connect.php';
 
 class loginManager
 {

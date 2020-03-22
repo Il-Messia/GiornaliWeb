@@ -1,5 +1,10 @@
 <?php
 
+/*
+De Leo Alex 5^CIA
+Pagina per il login
+*/
+
 $title = 'Login';
 include_once './dbManager/checkLogged.php';
 include_once './UI/UIManager.php';
@@ -11,9 +16,11 @@ if (isset($_POST['username'])) {
     $user = $_POST['username'];
 }
 if (isset($_POST['password'])) {
-    $pass = $_POST['password'];
+    //per evitare sql injection
+    $pass = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 }
 if (isset($_POST['username']) && isset($_POST['password'])) {
+    //avvio procedura di login
     $loginmanager->login($user, $pass);
     if($loginmanager->getStatus()){
         echo '<div class="uk-alert-success" uk-alert>

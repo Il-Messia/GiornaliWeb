@@ -1,5 +1,10 @@
 <?php
 
+/*
+De Leo Alex 5^CIA
+Questa classe permette la gestione delle connessioni al DB
+*/
+
     class dbManager{
         private $dbHost;
         private $dbUsername;
@@ -22,7 +27,8 @@
             return $res;
         }
 
-        /*function setUsername($us){
+        //senza password
+        function setUsername($us){
             switch($us){
                 case 1:
                     $this->dbUsername = "admin";
@@ -45,10 +51,10 @@
                     $this->dbPassword = "";
                     break;
             }
-        }*/
+        }
 
         //con password, togliere da commento per utilizzarlo
-        function setUsername($us){
+        /*function setUsername($us){
             switch($us){
                 case 1:
                     $this->dbUsername = "admin";
@@ -71,7 +77,7 @@
                     $this->dbPassword = "";
                     break;
             }
-        }
+        }*/
 
         function __construct()
         {

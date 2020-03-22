@@ -1,5 +1,10 @@
 <?php
 
+/*
+De Leo Alex 5^CIA
+Pagina per testare la connessione al DB
+*/
+
 $title = 'Test';
 include_once './dbManager/checkLogged.php';
 include_once './UI/UIManager.php';

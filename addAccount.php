@@ -7,12 +7,15 @@ include_once './UI/UIManager.php';
 $loginmanager = new loginManager;
 $dbmanager = new dbManager;
 $uimanager = new UImanager($loginmanager);
+
 $dbmanager->setUsername($loginmanager->toNumber());
 $dbmanager->connect();
+//Query per l'inserimento di dati sottoforma di <option></option>
 $students = $dbmanager->runQuery("SELECT IdStudente, Nome, Cognome FROM Studenti");
 $accountType = $dbmanager->runQuery("SELECT IdTA, Nome FROM tipiaccount");
 $dbmanager->closeConnection();
 
+//scrittura nel file HTML delle scelte possibili restituite dalle query
 function printStudents($var)
 {
     if (mysqli_num_rows($var) > 0) {
@@ -29,6 +32,8 @@ function printAccountType($var)
         }
     }
 }
+
+//query per la costruzione del menu
 $dbmanager->setUsername(100);
 $dbmanager->connect();
 $qryCat = "SELECT IdCategoria, Nome FROM categorie";

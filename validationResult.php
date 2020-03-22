@@ -1,5 +1,10 @@
 <?php
 
+/*
+De Leo Alex 5^CIA
+Pagina che permette di vedere i risultati della validazione
+*/
+
 $title = 'Valida';
 
 include_once './dbManager/checkLogged.php';

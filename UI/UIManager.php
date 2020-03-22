@@ -1,4 +1,10 @@
 <?php
+
+/*
+De Leo Alex 5^CIA
+Questa classe racchiude alcune delle parti grafiche più ripetute nelle pagine
+*/
+
 class UImanager
 {
     private $loginmanager;

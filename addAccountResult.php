@@ -1,5 +1,8 @@
 <?php
-
+/*
+De Leo Alex 5^CIA
+Pagina di supporto per l'inserimeto di nuovi account
+*/
 $title = 'Aggiungi account';
 include_once './dbManager/checkLogged.php';
 include_once './UI/UIManager.php';
@@ -10,11 +13,13 @@ $uimanager = new UImanager($loginmanager);
 $dbmanager->setUsername($loginmanager->toNumber());
 $dbmanager->connect();
 
+//prendo i dati inseriti nel form
 $student = $_POST['student'];
 $username = $_POST['username'];
 $password = sha1($_POST['password']);
 $accounttype = $_POST['accounttype'];
 
+//query di inserimento dati
 $query = 'INSERT INTO account (Studente,Username,PassWord,TipoAccount) VALUES (' . $student . ',"' . $username . '","' . $password . '",' . $accounttype . ')';
 $result = $dbmanager->runQuery($query);
 $qryCat = "SELECT IdCategoria, Nome FROM categorie";

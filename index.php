@@ -1,5 +1,10 @@
 <?php
 
+/*
+De Leo Alex 5^CIA
+Home page visualizza gli articoli
+*/
+
 $title = 'Home';
 
 include_once './dbManager/checkLogged.php';
@@ -13,6 +18,7 @@ $dbmanager->setUsername($loginmanager->toNumber());
 $dbmanager->connect();
 
 if (isset($_GET['search']) && $_GET['search'] != "" && !isset($_GET['cat'])) {
+    //Search
     $HWSearch = $_GET['search'];
     $tmpQuery = 'SELECT idHW FROM hotwords WHERE HotWord = "' . $HWSearch . '"';
     $res = $dbmanager->runQuery($tmpQuery);
@@ -24,9 +30,11 @@ if (isset($_GET['search']) && $_GET['search'] != "" && !isset($_GET['cat'])) {
     }
 } else {
     if(isset($_GET['cat']) && $_GET['cat'] != ""){
+        //Cerca per categoria
         $tmpQuery = 'SELECT IdArticolo, Titolo, Abstract, DataInizioVis, DataFineVis FROM articolo,CA WHERE IdArticolo = CA.Articolo and CA.Categoria = ' . $_GET['cat']. ' and IdArticolo NOT IN (SELECT IdArticolo FROM articolo WHERE Visionatore IS NULL)';
         $res = $dbmanager->runQuery($tmpQuery);
     }else{
+        //Stampa senza filtri
         $query = "SELECT IdArticolo, Titolo, Abstract, DataInizioVis, DataFineVis FROM articolo WHERE IdArticolo NOT IN (SELECT IdArticolo FROM articolo WHERE Visionatore IS NULL)";
         $res = $dbmanager->runQuery($query);
     }

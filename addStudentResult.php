@@ -1,5 +1,10 @@
 <?php
 
+/*
+De Leo Alex 5^CIA
+Pagina di supporto per l'inserimento dei studenti
+*/
+
 $title = 'Aggiungi studente';
 include_once './dbManager/checkLogged.php';
 include_once './UI/UIManager.php';
