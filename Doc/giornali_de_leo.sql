@@ -22,6 +22,8 @@ SET time_zone = "+00:00";
 -- Database: `giornali_de_leo`
 --
 
+CREATE DATABASE `giornali_de_leo`;
+
 -- --------------------------------------------------------
 
 --

@@ -21,8 +21,34 @@
             $res = mysqli_query($this->dbConnection, $query);
             return $res;
         }
-        
+
         function setUsername($us){
+            switch($us){
+                case 1:
+                    $this->dbUsername = "admin";
+                    $this->dbPassword = "";
+                    break;
+                case 2:
+                    $this->dbUsername = "lettore";
+                    $this->dbPassword = "";
+                    break;
+                case 3:
+                    $this->dbUsername = "validatore";
+                    $this->dbPassword = "";
+                    break;
+                case 4:
+                    $this->dbUsername = "scrittore";
+                    $this->dbPassword = "";
+                    break;
+                default:
+                    $this->dbUsername = "lettore";
+                    $this->dbPassword = "";
+                    break;
+            }
+        }
+
+        //con password, togliere da commento per utilizzarlo
+        /*function setUsername($us){
             switch($us){
                 case 1:
                     $this->dbUsername = "admin";
@@ -45,7 +71,7 @@
                     $this->dbPassword = "";
                     break;
             }
-        }
+        }*/
 
         function __construct()
         {
