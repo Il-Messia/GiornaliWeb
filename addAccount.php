@@ -1,29 +1,39 @@
 <?php
 
 $title = 'Aggiungi account';
-include './dbManager/checkLogged.php';
+include_once './dbManager/checkLogged.php';
+include_once './UI/UIManager.php';
+
 $loginmanager = new loginManager;
 $dbmanager = new dbManager;
+$uimanager = new UImanager($loginmanager);
 $dbmanager->setUsername($loginmanager->toNumber());
 $dbmanager->connect();
 $students = $dbmanager->runQuery("SELECT IdStudente, Nome, Cognome FROM Studenti");
 $accountType = $dbmanager->runQuery("SELECT IdTA, Nome FROM tipiaccount");
 $dbmanager->closeConnection();
 
-function printStudents($var){
+function printStudents($var)
+{
     if (mysqli_num_rows($var) > 0) {
         while ($row = mysqli_fetch_assoc($var)) {
-            echo '<option value="' . $row['IdStudente'] .'">' . $row['Nome'] . ' '. $row['Cognome'] . '</option>\n';
+            echo '<option value="' . $row['IdStudente'] . '">' . $row['Nome'] . ' ' . $row['Cognome'] . '</option>\n';
         }
     }
 }
-function printAccountType($var){
+function printAccountType($var)
+{
     if (mysqli_num_rows($var) > 0) {
         while ($row = mysqli_fetch_assoc($var)) {
-            echo '<option value="' . $row['IdTA'] .'">' . $row['Nome'] . '</option>\n';
+            echo '<option value="' . $row['IdTA'] . '">' . $row['Nome'] . '</option>\n';
         }
     }
 }
+$dbmanager->setUsername(100);
+$dbmanager->connect();
+$qryCat = "SELECT IdCategoria, Nome FROM categorie";
+$cat = $dbmanager->runQuery($qryCat);
+$dbmanager->closeConnection();
 ?>
 
 <html>
@@ -41,43 +51,9 @@ function printAccountType($var){
 
 <body class="uk-animation-fade">
     <nav class="uk-navbar uk-navbar-container uk-margin">
-        <div class="uk-navbar-left">
-            <a class="uk-navbar-toggle" href="index.php" uk-toggle="target: #offcanvas-push">
-                <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
-            </a>
-            <div id="offcanvas-push" uk-offcanvas="mode: push; overlay: true">
-                <div class="uk-offcanvas-bar">
-
-                    <button class="uk-offcanvas-close" type="button" uk-close></button>
-
-                    <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-                        <li class="uk-nav-header">Pagina corrente</li>
-                        <li class="uk-active"><a href="write.php"><?php echo "$title"; ?></a></li>
-                        <li class="uk-nav-divider"></li>
-                        <li class="uk-parent">
-                            <a href="#">Menu</a>
-                            <ul class="uk-nav-sub">
-                                <li><a href="index.php"></span class="uk-margin-small-left">Home<span></a></li>
-                                <li><a href="write.php">Scrivi</a></li>
-                                <li><a href="login.php">Login</a></li>
-                                <li><a href="testDBconnection.php">Test</a></li>
-                                <?php
-                                if ($loginmanager->getAccounttype() === "admin" || $loginmanager->getAccounttype() === "validatore") {
-                                    echo '<li><a href="valida.php">Da validare</a></li>';
-                                }
-                                ?>
-                                <?php
-                                if ($loginmanager->getAccounttype() === "admin") {
-                                    echo '<li><a href="addAccount.php">Aggiungi account</a></li>';
-                                }
-                                ?>
-                            </ul>
-                        </li>
-                        <li class="uk-nav-divider"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <?php
+        $uimanager->sxMenu($title, $cat);
+        ?>
     </nav>
     <?php
 
@@ -94,8 +70,8 @@ function printAccountType($var){
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-text">Studente</label>
                                     <select class="uk-select" name="student">';
-                                        printStudents($students);
-                                echo '</select>
+        printStudents($students);
+        echo '</select>
                                 </div>
                                 <div class="uk-margin">
                                     <span class="uk-text-middle">Studente non trovato? Aggiungi uno </span>
@@ -113,8 +89,8 @@ function printAccountType($var){
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-text">Tipologia account</label>
                                     <select class="uk-select" name="accounttype">';
-                                        printAccountType($accountType);
-                                echo '</select>
+        printAccountType($accountType);
+        echo '</select>
                                 <div class="uk-margin">
                                     <label class="uk-form-label" for="form-stacked-text">Password</label>
                                     <div class="uk-inline uk-width-1-1">

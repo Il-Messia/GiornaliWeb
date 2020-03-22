@@ -1,11 +1,17 @@
 <?php
 
 $title = 'Test';
-include './dbManager/connect.php';
-
+include_once './dbManager/checkLogged.php';
+include_once './UI/UIManager.php';
+$loginmanager = new loginManager;
 $test = new dbManager;
+$uimanager = new UImanager($loginmanager);
 
 $test->test();
+
+$qryCat = "SELECT IdCategoria, Nome FROM categorie";
+$cat = $test->runQuery($qryCat);
+
 $test->closeConnection();
 
 ?>
@@ -25,32 +31,7 @@ $test->closeConnection();
 
 <body class="uk-animation-fade">
     <nav class="uk-navbar uk-navbar-container uk-margin">
-        <div class="uk-navbar-left">
-            <a class="uk-navbar-toggle" href="index.php" uk-toggle="target: #offcanvas-push">
-                <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
-            </a>
-            <div id="offcanvas-push" uk-offcanvas="mode: push; overlay: true">
-                <div class="uk-offcanvas-bar">
-
-                    <button class="uk-offcanvas-close" type="button" uk-close></button>
-
-                    <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-                        <li class="uk-nav-header">Pagina corrente</li>
-                        <li class="uk-active"><a href="index.php"><?php echo "$title"; ?></a></li>
-                        <li class="uk-nav-divider"></li>
-                        <li class="uk-parent">
-                            <a href="#">Menu</a>
-                            <ul class="uk-nav-sub">
-                                <li><a href="index.php"></span class="uk-margin-small-left">Home<span></a></li>
-                                <li><a href="login.php">Login</a></li>
-                                <li><a href="testDBconnection.php">Test</a></li>
-                            </ul>
-                        </li>
-                        <li class="uk-nav-divider"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <?php $uimanager->sxMenu($title,$cat); ?>
         <div class="uk-navbar-right">
 
             <ul class="uk-navbar-nav">

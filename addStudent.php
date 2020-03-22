@@ -1,10 +1,19 @@
 <?php
 
 $title = 'Aggiungi studente';
-include './dbManager/checkLogged.php';
+include_once './dbManager/checkLogged.php';
+include_once './UI/UIManager.php';
+
 $loginmanager = new loginManager;
+$dbmanager = new dbManager;
+$uimanager = new UImanager($loginmanager);
 $today = date("Y/m/d");
 
+$dbmanager->setUsername(100);
+$dbmanager->connect();
+$qryCat = "SELECT IdCategoria, Nome FROM categorie";
+$cat = $dbmanager->runQuery($qryCat);
+$dbmanager->closeConnection();
 ?>
 
 <html>
@@ -22,43 +31,9 @@ $today = date("Y/m/d");
 
 <body class="uk-animation-fade">
     <nav class="uk-navbar uk-navbar-container uk-margin">
-        <div class="uk-navbar-left">
-            <a class="uk-navbar-toggle" href="index.php" uk-toggle="target: #offcanvas-push">
-                <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
-            </a>
-            <div id="offcanvas-push" uk-offcanvas="mode: push; overlay: true">
-                <div class="uk-offcanvas-bar">
-
-                    <button class="uk-offcanvas-close" type="button" uk-close></button>
-
-                    <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-                        <li class="uk-nav-header">Pagina corrente</li>
-                        <li class="uk-active"><a href="write.php"><?php echo "$title"; ?></a></li>
-                        <li class="uk-nav-divider"></li>
-                        <li class="uk-parent">
-                            <a href="#">Menu</a>
-                            <ul class="uk-nav-sub">
-                                <li><a href="index.php"></span class="uk-margin-small-left">Home<span></a></li>
-                                <li><a href="write.php">Scrivi</a></li>
-                                <li><a href="login.php">Login</a></li>
-                                <li><a href="testDBconnection.php">Test</a></li>
-                                <?php
-                                if ($loginmanager->getAccounttype() === "admin" || $loginmanager->getAccounttype() === "validatore") {
-                                    echo '<li><a href="valida.php">Da validare</a></li>';
-                                }
-                                ?>
-                                <?php
-                                if ($loginmanager->getAccounttype() === "admin") {
-                                    echo '<li><a href="addAccount.php">Aggiungi account</a></li>';
-                                }
-                                ?>
-                            </ul>
-                        </li>
-                        <li class="uk-nav-divider"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <?php
+        $uimanager->sxMenu($title, $cat);
+        ?>
     </nav>
     <?php
 
