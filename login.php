@@ -7,7 +7,6 @@ include_once './UI/UIManager.php';
 $loginmanager = new loginManager;
 $dbmanager = new dbManager;
 $uimanager = new UImanager($loginmanager);
-$dbmanager->connect();
 if (isset($_POST['username'])) {
     $user = $_POST['username'];
 }
@@ -16,9 +15,23 @@ if (isset($_POST['password'])) {
 }
 if (isset($_POST['username']) && isset($_POST['password'])) {
     $loginmanager->login($user, $pass);
+    if($loginmanager->getStatus()){
+        echo '<div class="uk-alert-success" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>Loggato con successo</p>
+            </div>';
+    }else{
+        echo '<div class="uk-alert-danger" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>Errore durante il login riprova</p>
+            </div>';
+    }
 }
+$dbmanager->setUsername(100);
+$dbmanager->connect();
 $qryCat = "SELECT IdCategoria, Nome FROM categorie";
 $cat = $dbmanager->runQuery($qryCat);
+$catForm = $dbmanager->runQuery($qryCat);
 $dbmanager->closeConnection();
 
 ?>

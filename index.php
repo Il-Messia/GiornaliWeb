@@ -12,7 +12,7 @@ $uimanager = new UImanager($loginmanager);
 $dbmanager->setUsername($loginmanager->toNumber());
 $dbmanager->connect();
 
-if (isset($_GET['search']) && $_GET['search'] != "") {
+if (isset($_GET['search']) && $_GET['search'] != "" && !isset($_GET['cat'])) {
     $HWSearch = $_GET['search'];
     $tmpQuery = 'SELECT idHW FROM hotwords WHERE HotWord = "' . $HWSearch . '"';
     $res = $dbmanager->runQuery($tmpQuery);
@@ -23,8 +23,14 @@ if (isset($_GET['search']) && $_GET['search'] != "") {
         $res = $dbmanager->runQuery($tmpQuery);
     }
 } else {
-    $query = "SELECT IdArticolo, Titolo, Abstract, DataInizioVis, DataFineVis FROM articolo WHERE IdArticolo NOT IN (SELECT IdArticolo FROM articolo WHERE Visionatore IS NULL)";
-    $res = $dbmanager->runQuery($query);
+    if(isset($_GET['cat']) && $_GET['cat'] != ""){
+        $tmpQuery = 'SELECT IdArticolo, Titolo, Abstract, DataInizioVis, DataFineVis FROM articolo,CA WHERE IdArticolo = CA.Articolo and CA.Categoria = ' . $_GET['cat']. ' and IdArticolo NOT IN (SELECT IdArticolo FROM articolo WHERE Visionatore IS NULL)';
+        $res = $dbmanager->runQuery($tmpQuery);
+    }else{
+        $query = "SELECT IdArticolo, Titolo, Abstract, DataInizioVis, DataFineVis FROM articolo WHERE IdArticolo NOT IN (SELECT IdArticolo FROM articolo WHERE Visionatore IS NULL)";
+        $res = $dbmanager->runQuery($query);
+    }
+    
 }
 
 

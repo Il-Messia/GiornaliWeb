@@ -13,6 +13,7 @@ $dbmanager->connect();
 $titolo = $_POST['titolo'];
 $abstract = $_POST['abstract'];
 $testo = $_POST['testo'];
+$category = $_POST['category'];
 
 $hwIndex = 0;
 $hotwords = array();
@@ -48,6 +49,8 @@ if ($result) {
     if (mysqli_num_rows($idRes) > 0) {
         $row = mysqli_fetch_assoc($idRes);
         $idArt = $row['idArticolo'];
+        $tmpQuery = 'INSERT INTO CA (Categoria, Articolo) VALUES (' . $category . ',' . $idArt . ')';
+        $dbmanager->runQuery($tmpQuery);
     }
     for ($i = 0; $i < $hwIndex; $i++) {
         $tmpQuery = 'SELECT idHW FROM hotwords WHERE HotWord = "' . $hotwords[$i] . '"';

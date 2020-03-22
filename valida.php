@@ -70,16 +70,12 @@ $dbmanager->closeConnection();
         $i = 0;
         if (mysqli_num_rows($res) > 0) {
             while ($row = mysqli_fetch_assoc($res)) {
-                $d1 = date_parse($today1);
-                $d2 = date_parse($row['DataFineVis']);
-                if ($d1 <= $d2) {
                     if ($i % 2 === 0) {
-                        $uimanager->printsx($row, $today1, $today2, getHW($row['IdArticolo']));
+                        $uimanager->printsxVal($row, $today1, $today2, getHW($row['IdArticolo']));
                     } else {
-                        $uimanager->printdx($row, $today1, $today2, getHW($row['IdArticolo']));
+                        $uimanager->printdxVal($row, $today1, $today2, getHW($row['IdArticolo']));
                     }
                     $i++;
-                }
             }
         }
         ?>

@@ -5,6 +5,7 @@ class UImanager
     private $url;
     private $urlSearch;
     private $urlCategory;
+    private $urlValida;
 
     public function __construct($loginmanager)
     {
@@ -12,6 +13,58 @@ class UImanager
         $this->url = "readArticle.php?id=";
         $this->urlSearch = "index.php?search=";
         $this->urlCategory = "index.php?cat=";
+        $this->urlValida = "validateArticle.php?id=";
+    }
+
+    function printsxVal($var, $t1, $t2, $HW)
+    {
+        echo '<div uk-scrollspy="cls: uk-animation-slide-left; repeat: true">
+                <a class="uk-link-reset" href="' . $this->urlValida . $var['IdArticolo'] . '">
+                    <div class="uk-card uk-card-default uk-card-hover uk-card-body">';
+        if ($var['DataInizioVis'] === $t1 || $var['DataInizioVis'] === $t2) {
+            echo '<div class="uk-card-badge uk-label">New</div>';
+        }
+        echo '               
+                        <h3 class="uk-card-title">' . $var['Titolo'] . '</h3>
+                        <p class="uk-text-meta uk-margin-remove-top"><time datetime="' . $var['DataInizioVis'] . 'T19:00">' . $var['DataInizioVis'] . '</time></p>
+                        <p>' . $var['Abstract'] . '</p>
+                        <p class="uk-text-meta uk-margin-remove-top">';
+        if (mysqli_num_rows($HW) > 0) {
+            while ($row = mysqli_fetch_array($HW)) {
+                echo '<a href="' . $this->urlSearch . $row['HotWord'] . '">#' . $row['HotWord'] . '</a>';
+            }
+        }
+        echo '</p>
+                    </div>
+                </a>
+
+            </div>';
+    }
+
+    function printdxVal($var, $t1, $t2, $HW)
+    {
+        $HW = getHW($var['IdArticolo']);
+        echo '<div uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
+        <a class="uk-link-reset" href="' . $this->urlValida . $var['IdArticolo'] . '">
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body">';
+        if ($var['DataInizioVis'] === $t1 || $var['DataInizioVis'] === $t2) {
+            echo '<div class="uk-card-badge uk-label">New</div>';
+        }
+        echo '               
+            <h3 class="uk-card-title">' . $var['Titolo'] . '</h3>
+            <p class="uk-text-meta uk-margin-remove-top"><time datetime="' . $var['DataInizioVis'] . 'T19:00">' . $var['DataInizioVis'] . '</time></p>
+            <p>' . $var['Abstract'] . '</p>
+            <p class="uk-text-meta uk-margin-remove-top">';
+        if (mysqli_num_rows($HW) > 0) {
+            while ($row = mysqli_fetch_array($HW)) {
+                echo '<a href="' . $this->urlSearch . $row['HotWord'] . '">#' . $row['HotWord'] . '</a>';
+            }
+        }
+        echo '</p>
+                </div>
+            </a>
+
+            </div>';
     }
 
     function printsx($var, $t1, $t2, $HW)
@@ -60,9 +113,9 @@ class UImanager
         }
         echo '</p>
         </div>
-    </a>
+        </a>
 
-    </div>';
+        </div>';
     }
 
     public function sxMenu($title, $cat)
@@ -96,6 +149,9 @@ class UImanager
         }
         if ($this->loginmanager->getAccounttype() === "admin") {
             echo '<li><a href="addAccount.php">Aggiungi account</a></li>';
+        }
+        if ($this->loginmanager->getAccounttype() === "admin") {
+            echo '<li><a href="addCategory.php">Aggiungi categoria</a></li>';
         }
         echo '</ul>
                     </li>

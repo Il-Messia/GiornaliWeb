@@ -1,38 +1,38 @@
 <?php
 
-$title = 'Aggiungi account';
+$title = 'Aggiungi categoria';
 include_once './dbManager/checkLogged.php';
 include_once './UI/UIManager.php';
 
 $loginmanager = new loginManager;
 $dbmanager = new dbManager;
 $uimanager = new UImanager($loginmanager);
-$dbmanager->setUsername($loginmanager->toNumber());
-$dbmanager->connect();
-$students = $dbmanager->runQuery("SELECT IdStudente, Nome, Cognome FROM Studenti");
-$accountType = $dbmanager->runQuery("SELECT IdTA, Nome FROM tipiaccount");
-$dbmanager->closeConnection();
 
-function printStudents($var)
-{
-    if (mysqli_num_rows($var) > 0) {
-        while ($row = mysqli_fetch_assoc($var)) {
-            echo '<option value="' . $row['IdStudente'] . '">' . $row['Nome'] . ' ' . $row['Cognome'] . '</option>';
-        }
-    }
-}
-function printAccountType($var)
-{
-    if (mysqli_num_rows($var) > 0) {
-        while ($row = mysqli_fetch_assoc($var)) {
-            echo '<option value="' . $row['IdTA'] . '">' . $row['Nome'] . '</option>';
-        }
-    }
-}
-$dbmanager->setUsername(100);
+
+$dbmanager->setUsername($loginmanager->toNumber());
 $dbmanager->connect();
 $qryCat = "SELECT IdCategoria, Nome FROM categorie";
 $cat = $dbmanager->runQuery($qryCat);
+if (isset($_POST['nomeCat']) && $_POST['nomeCat'] != "") {
+    $tmpQuery = 'INSERT INTO Categorie (Nome) VALUES ("' . $_POST['nomeCat'] . '")';
+    $res = $dbmanager->runQuery($tmpQuery);
+    if ($res) {
+        echo '<div class="uk-alert-success" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>Aggiunto con successo</p>
+            </div>';
+    } else {
+        echo '<div class="uk-alert-danger" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>Errore inserimento</p>
+            </div>';
+    }
+}else{
+    echo '<div class="uk-alert-danger" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>Non hai inserito i campi correttamente</p>
+            </div>';
+}
 $dbmanager->closeConnection();
 ?>
 
@@ -65,37 +65,12 @@ $dbmanager->closeConnection();
                 <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                     <div class="uk-width-1-1@m">
                         <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                            <h3 class="uk-card-title uk-text-center">Aggiungi account</h3>
-                            <form class="uk-form-stacked" method="POST" action="addAccountResult.php">
+                            <h3 class="uk-card-title uk-text-center">Aggiungi categoria</h3>
+                            <form class="uk-form-stacked" method="post" action="addCategory.php">
                                 <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-text">Studente</label>
-                                    <select class="uk-select" name="student">';
-        printStudents($students);
-        echo '</select>
-                                </div>
-                                <div class="uk-margin">
-                                    <span class="uk-text-middle">Studente non trovato? Aggiungi uno </span>
-                                        <div uk-form-custom>
-                                            <span class="uk-link"><a href="addStudent.php">studente</a></span>
-                                        </div>
-                                </div>
-                                <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-text">Username</label>
+                                    <label class="uk-form-label" for="form-stacked-text">Nome</label>
                                     <div class="uk-inline uk-width-1-1">
-                                            <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                            <input class="uk-input uk-form-large" type="text" name="username" required maxlength="50">
-                                        </div>
-                                </div>
-                                <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-text">Tipologia account</label>
-                                    <select class="uk-select" name="accounttype">';
-        printAccountType($accountType);
-        echo '</select>
-                                <div class="uk-margin">
-                                    <label class="uk-form-label" for="form-stacked-text">Password</label>
-                                    <div class="uk-inline uk-width-1-1">
-                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                            <input class="uk-input uk-form-large" type="password" required maxlength="500" name="password">
+                                            <input class="uk-input uk-form-large" type="text" name="nomeCat" required>
                                         </div>
                                 </div>
                                 <div class="uk-margin">

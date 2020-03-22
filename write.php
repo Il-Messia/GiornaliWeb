@@ -13,6 +13,7 @@ $dbmanager->setUsername(100);
 $dbmanager->connect();
 $qryCat = "SELECT IdCategoria, Nome FROM categorie";
 $cat = $dbmanager->runQuery($qryCat);
+$catForm = $dbmanager->runQuery($qryCat);
 $dbmanager->closeConnection();
 
 ?>
@@ -32,7 +33,7 @@ $dbmanager->closeConnection();
 
 <body class="uk-animation-fade">
     <nav class="uk-navbar uk-navbar-container uk-margin">
-        <?php $uimanager->sxMenu($title,$cat); ?>
+        <?php $uimanager->sxMenu($title, $cat); ?>
     </nav>
     <?php
 
@@ -77,6 +78,16 @@ $dbmanager->closeConnection();
                                         <span class="uk-form-icon" uk-icon="icon: calendar"></span>
                                         <input name="datafin" class="uk-input" placeholder="' . $today . '" required minlength="10" maxlength="10">
                                     </div>
+                                </div>
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="form-stacked-select">Categoria</label>
+                                    <select class="uk-select" name="category">';
+                                    if (mysqli_num_rows($catForm) > 0) {
+                                        while ($row = mysqli_fetch_assoc($catForm)) {
+                                            echo '<option value="' . $row['IdCategoria'] . '">' . $row['Nome'] . '</option>';
+                                        }
+                                    }
+                                    echo '</select>
                                 </div>
                             </div>
                             <div class="uk-margin">
